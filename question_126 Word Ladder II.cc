@@ -63,7 +63,7 @@ public:
         }
         vector<vector<string>> dp(max_levl, vector<string>());
     	clip_ladder_dp(start, end, DPs_form_start, dp);
-		//更具dp生成答案
+		//根据dp合并答案
     	vector<vector<string>> result(1,vector<string>(1,start)), tmp;
     	for(int levl = 1; levl < max_levl; ++levl){
     		for (int i = result.size()-1; i>=0; --i)	{
