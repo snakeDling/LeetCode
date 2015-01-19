@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int findMin(vector<int>& num, int l, int r, int tag){
+        while(l<r){
+            int mid = (r-l)/2 + l;
+            if(num[mid] == tag){
+                int r_val = findMin(num, mid+1, r, tag);
+                int l_val = findMin(num, l, mid-1, tag);
+                return min(r_val, l_val);
+            }else if(num[mid] < tag){
+                r = mid - 1;
+            }else{
+                l = mid + 1;
+            }
+        }
+        if(l >= num.size()){
+            return num[0];
+        }else if(l+1>=num.size() || num[l] < num[l+1]){
+            return num[l];
+        }else{
+            return num[l+1];
+        }
+    }
+
+    int findMin(vector<int> &num) {
+        return findMin(num, 0, num.size(), num[0]);
+    }
+};
