@@ -1,0 +1,46 @@
+class MinStack {
+public:
+    void push(int x) {
+        if(_stack.empty()){
+            _min = x;
+            _stack.push_back(pair<long long,int>(0,1));
+        }else{
+            if(_stack.size() > 10000) return;
+            if((_stack.back().first+_min) == x){
+                _stack.back().second++;
+            }else{
+                _stack.push_back(pair<long long, int>(x-_min, 1));
+                if(_min > x){
+                    _min = x;
+                }
+            }
+        }
+    }
+
+    void pop() {
+        if(_stack.empty()) return;
+        if(--_stack.back().second > 0) return;
+        long long tag = _stack.back().first;
+        if(tag < 0){
+            _min = _min - tag;
+        }
+        _stack.pop_back();
+        if(_stack.empty()){
+            _min = 0;
+        }
+    }
+
+    int top() {
+        if(_stack.empty()) return 0;
+        if(_stack.back().first < 0) return _min;
+        return _stack.back().first+_min;
+    }
+
+    int getMin() {
+        if(_stack.empty()) return 0;
+        return _min;
+    }
+private:
+    vector<pair<long long, int>> _stack;
+    long long _min;
+};
